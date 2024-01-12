@@ -98,7 +98,8 @@ router.get("/feed", async function (req, res, next) {
   const posts = await postModel.find()
     .populate("user");
       console.log(posts)
-  res.render("feed", { nav: false , posts})
+      const user = await userModel.findOne({ username: req.session.passport.user });
+  res.render("feed", { nav: false , posts , user})
 })
 
 function isLoggedIn(req, res, next) {
